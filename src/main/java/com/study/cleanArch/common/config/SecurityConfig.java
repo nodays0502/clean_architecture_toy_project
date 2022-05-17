@@ -1,5 +1,7 @@
 package com.study.cleanArch.common.config;
 
+import com.study.cleanArch.common.jwt.JwtAccessDeniedHandler;
+import com.study.cleanArch.common.jwt.JwtAuthenticationEntryPoint;
 import com.study.cleanArch.member.application.port.in.GetMemberQuery;
 import com.study.cleanArch.common.jwt.JwtAuthenticationFilter;
 import com.study.cleanArch.common.jwt.JwtAuthorizationFilter;
@@ -22,6 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final CorsFilter corsFilter;
     private final GetMemberQuery getMemberQuery;
 
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
@@ -40,21 +45,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(
-            authenticationManager());
-        jwtAuthenticationFilter.setFilterProcessesUrl("/api/member/login");
         httpSecurity
-            // token을 사용하는 방식이기 때문에 csrf를 disable합니다.
             .csrf().disable()
 
             .addFilter(corsFilter)
             .formLogin().disable()
             .httpBasic().disable()
-            .addFilter(jwtAuthenticationFilter)
             .addFilter(new JwtAuthorizationFilter(authenticationManager(),getMemberQuery))
             .exceptionHandling()
-//            .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-//            .accessDeniedHandler(jwtAccessDeniedHandler)
+            .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+            .accessDeniedHandler(jwtAccessDeniedHandler)
 
             // enable h2-console
             .and()
@@ -70,6 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
             .antMatchers("/api/member/join").permitAll()
+            .antMatchers("/api/member/login").permitAll()
             .antMatchers("/api/products").permitAll()
             .antMatchers("/api/product/**").permitAll()
             .antMatchers("/api/member/register").permitAll()

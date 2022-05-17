@@ -31,7 +31,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(
         HttpServletRequest request, HttpServletResponse response){
-        System.out.println("JwtAuthenticationFilter : 진입");
 
         ObjectMapper om = new ObjectMapper();
         LoginRequestDto loginRequestDto = null;
@@ -42,21 +41,16 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             e.printStackTrace();
         }
 
-        System.out.println("JwtAuthenticationFilter : " + loginRequestDto);
-
         // 유저네임패스워드 토큰 생성
         UsernamePasswordAuthenticationToken authenticationToken =
             new UsernamePasswordAuthenticationToken(
                 loginRequestDto.getEmail(),
                 loginRequestDto.getPassword());
 
-        System.out.println("JwtAuthenticationFilter : 토큰생성완료");
 
         Authentication authentication =
             authenticationManager.authenticate(authenticationToken);
-        System.out.println("여기서 안되니?");
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-        System.out.println("Authentication : "+principalDetails.getMember().getEmail());
         return authentication;
     }
 

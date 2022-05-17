@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 public class RegisterOrderRequestDto {
     @NotNull
     private List<OrderLineDto> orderLineDtoLists;
-    @NotBlank
+    @NotNull
     private OrderState orderState;
     @NotNull
     private ShippingInfo shippingInfo;
