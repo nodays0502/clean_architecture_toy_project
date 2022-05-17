@@ -4,6 +4,7 @@ package com.study.cleanArch.product.adapter.out.persistence;
 import static com.study.cleanArch.product.adapter.out.persistence.QProductJpaEntity.*;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.study.cleanArch.exception.product.NotFoundProductException;
 import com.study.cleanArch.product.application.port.out.GetProductQueryPort;
 import com.study.cleanArch.product.domain.Product;
 import com.study.cleanArch.product.domain.ProductNo;
@@ -23,12 +24,15 @@ public class ProductQuerydsl implements GetProductQueryPort {
 
     @Override
     public Product getProductByNo(ProductNo productNo) {
-        return queryFactory
-            .select(productJpaEntity)
-            .from(productJpaEntity)
-            .where(productJpaEntity.no.eq(productNo.getValue()))
-            .fetchOne()
-            .of();
+        ProductJpaEntity productJpaEntity = queryFactory
+            .select(QProductJpaEntity.productJpaEntity)
+            .from(QProductJpaEntity.productJpaEntity)
+            .where(QProductJpaEntity.productJpaEntity.no.eq(productNo.getValue()))
+            .fetchOne();
+        if(productJpaEntity == null){
+            throw new NotFoundProductException();
+        }
+        return productJpaEntity.of();
     }
 
     @Override

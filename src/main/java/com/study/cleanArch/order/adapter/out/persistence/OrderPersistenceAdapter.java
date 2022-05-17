@@ -1,5 +1,7 @@
 package com.study.cleanArch.order.adapter.out.persistence;
 
+import com.study.cleanArch.exception.member.NotFoundMemberException;
+import com.study.cleanArch.exception.product.NotFoundProductException;
 import com.study.cleanArch.member.adapter.out.persistence.MemberJpaEntity;
 import com.study.cleanArch.member.application.port.out.GetMemberQueryPort;
 import com.study.cleanArch.member.domain.Member;
@@ -37,6 +39,10 @@ public class OrderPersistenceAdapter implements RegisterOrderPort, CancelOrderPo
         MemberJpaEntity memberJpaEntity = em.find(MemberJpaEntity.class,
             order.getMemberNo().getValue());
 
+        if(memberJpaEntity == null){
+            throw new NotFoundMemberException();
+        }
+
         ShippingInfo shippingInfo = order.getShippingInfo();
         ShippingInfoJpaEntity shippingInfoJpaEntity = new ShippingInfoJpaEntity(
             shippingInfo.getAddress().getZipCode(),
@@ -51,14 +57,14 @@ public class OrderPersistenceAdapter implements RegisterOrderPort, CancelOrderPo
             .forEach(o -> {
                     ProductJpaEntity productJpaEntity = em.find(ProductJpaEntity.class,
                         o.getProductNo().getValue());
+                    if(productJpaEntity == null){
+                        throw new NotFoundProductException();
+                    }
                     orderJpaEntity.addOrderLine(
                         new OrderLineJpaEntity(o.getPrice().getValue(), o.getQuantity(),
                             productJpaEntity));
                 }
             );
-        System.out.println(orderJpaEntity.getMember().getNo());
-        System.out.println(orderJpaEntity.getOrderState());
-        System.out.println(orderJpaEntity.getShippingInfoJpaEntity());
         em.persist(orderJpaEntity);
     }
 

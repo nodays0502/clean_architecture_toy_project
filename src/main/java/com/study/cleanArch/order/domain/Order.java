@@ -1,6 +1,7 @@
 package com.study.cleanArch.order.domain;
 
 import com.study.cleanArch.common.domain.Money;
+import com.study.cleanArch.exception.order.OrderIsDepart;
 import com.study.cleanArch.member.domain.MemberNo;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -32,7 +33,7 @@ public class Order {
     public void cancel() {
         if (this.checkNotShipped()) {
             // 에러 SHIPPING, DELIVERY_COMPLETED
-            throw new RuntimeException();
+            throw new OrderIsDepart();
         }
         this.orderState = OrderState.CANCEL;
     }

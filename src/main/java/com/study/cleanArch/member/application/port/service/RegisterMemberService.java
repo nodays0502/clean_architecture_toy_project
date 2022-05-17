@@ -1,8 +1,10 @@
 package com.study.cleanArch.member.application.port.service;
 
 import com.study.cleanArch.member.application.port.in.RegisterMemberUseCase;
+import com.study.cleanArch.member.application.port.out.GetMemberQueryPort;
 import com.study.cleanArch.member.application.port.out.RegisterMemberPort;
 import com.study.cleanArch.member.domain.Member;
+import com.study.cleanArch.order.application.port.out.GetOrderQueryPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

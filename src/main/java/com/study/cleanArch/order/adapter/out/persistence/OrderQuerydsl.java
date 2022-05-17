@@ -6,6 +6,8 @@ import static com.study.cleanArch.order.adapter.out.persistence.QOrderLineJpaEnt
 import static com.study.cleanArch.order.adapter.out.persistence.QShippingInfoJpaEntity.shippingInfoJpaEntity;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.study.cleanArch.exception.order.NotFoundOrderException;
+import com.study.cleanArch.exception.product.NotFoundProductException;
 import com.study.cleanArch.member.domain.MemberNo;
 import com.study.cleanArch.order.application.port.out.GetOrderQueryPort;
 import com.study.cleanArch.order.domain.Order;
@@ -26,11 +28,15 @@ public class OrderQuerydsl implements GetOrderQueryPort {
 
     @Override
     public Order findOrderByNo(OrderNo orderNo) {
-        return queryFactory
-            .select(orderJpaEntity)
-            .from(orderJpaEntity,orderLineJpaEntity)
-            .where(orderJpaEntity.no.eq(orderNo.getValue()))
-            .fetchOne().of();
+        OrderJpaEntity orderJpaEntity = queryFactory
+            .select(QOrderJpaEntity.orderJpaEntity)
+            .from(QOrderJpaEntity.orderJpaEntity, orderLineJpaEntity)
+            .where(QOrderJpaEntity.orderJpaEntity.no.eq(orderNo.getValue()))
+            .fetchOne();
+        if(orderJpaEntity == null){
+            throw new NotFoundOrderException();
+        }
+        return orderJpaEntity.of();
     }
 
     @Override
