@@ -21,6 +21,6 @@ public class RegisterMemberRequestDto {
     private String auth;
 
     public Member of() {
-        return Member.withOutNo(email,name,password,auth);
+        return Member.withOutNo(email, name, password, auth);
     }
 }
