@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class MemberController {
+class MemberController {
     private final GetMemberQuery getMemberQuery;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final RegisterMemberUseCase registerMemberUsecase;

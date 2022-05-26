@@ -14,7 +14,7 @@ import javax.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ProductQuerydsl implements GetProductQueryPort {
+class ProductQuerydsl implements GetProductQueryPort {
 
     private final JPAQueryFactory queryFactory;
 

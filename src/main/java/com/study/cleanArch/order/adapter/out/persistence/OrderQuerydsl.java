@@ -18,7 +18,7 @@ import javax.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class OrderQuerydsl implements GetOrderQueryPort {
+class OrderQuerydsl implements GetOrderQueryPort {
 
     private final JPAQueryFactory queryFactory;
 

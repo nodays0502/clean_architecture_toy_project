@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class MemberPersistenceAdapter implements RegisterMemberPort {
+class MemberPersistenceAdapter implements RegisterMemberPort {
 
     private final EntityManager em;
 

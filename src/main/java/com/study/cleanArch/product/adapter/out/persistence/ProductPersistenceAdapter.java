@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class ProductPersistenceAdapter implements RegisterProductPort {
+class ProductPersistenceAdapter implements RegisterProductPort {
 
     private final EntityManager em;
 

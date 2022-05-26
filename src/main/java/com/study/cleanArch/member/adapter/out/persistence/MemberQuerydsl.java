@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MemberQuerydsl implements GetMemberQueryPort {
+class MemberQuerydsl implements GetMemberQueryPort {
 
     private final JPAQueryFactory queryFactory;
 

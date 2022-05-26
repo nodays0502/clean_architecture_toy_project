@@ -23,7 +23,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class OrderPersistenceAdapter implements RegisterOrderPort, CancelOrderPort {
+class OrderPersistenceAdapter implements RegisterOrderPort, CancelOrderPort {
 
     private final EntityManager em;
 
