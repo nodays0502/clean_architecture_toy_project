@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class RegisterMemberService implements RegisterMemberUseCase {
+class RegisterMemberService implements RegisterMemberUseCase {
 
     private final RegisterMemberPort registerMemberPort;
 

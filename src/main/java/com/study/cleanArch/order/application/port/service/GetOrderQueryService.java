@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class GetOrderQueryService implements GetOrderQueryUseCase {
+class GetOrderQueryService implements GetOrderQueryUseCase {
     private final GetOrderQueryPort getOrderQueryPort;
     @Override
     public Order findOrderByNo(OrderNo orderNo) {

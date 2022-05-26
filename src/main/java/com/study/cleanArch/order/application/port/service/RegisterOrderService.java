@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class RegisterOrderService implements RegisterOrderUseCase {
+class RegisterOrderService implements RegisterOrderUseCase {
 
     private final RegisterOrderPort registerOrderPort;
 

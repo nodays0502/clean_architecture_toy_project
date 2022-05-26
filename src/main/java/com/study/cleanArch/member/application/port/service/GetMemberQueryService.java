@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class GetMemberQueryService implements GetMemberQuery {
+class GetMemberQueryService implements GetMemberQuery {
     private final GetMemberQueryPort getMemberQueryPort;
 
     @Override
